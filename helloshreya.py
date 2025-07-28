@@ -1,0 +1,2 @@
+print("Idiot")
+print("karde")
