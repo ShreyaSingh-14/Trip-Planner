@@ -1,0 +1,17 @@
+this file is here for documentation.
+I will write a lot here so sit back enjoy popcorn and read this while you are here with this dox.
+i will be writing this very informally. why? coz I want to. For this project at least.
+
+30-07-25:
+so what happened is once we make a new react app for this we run
+npx create-expo-app@latest trip-planner
+the next thing happened is i can see the dependencies loading but they were shown deprecated so the ts version is old...it has to be above 5.0 for this to be fixed...
+
+now what?
+we remove these files, 
+get that version now again run the same npx command and see those dependencies loading,
+now if you see any thing like red folder and it ways some expo folder is not found in tsconfig.json then
+nothing to worry just close vs code and open it again.
+why? coz it takes time for vs to digest this new version of ts you just loaded a min ago..
+yah we will reopen it and this time everything will be in place.
+
