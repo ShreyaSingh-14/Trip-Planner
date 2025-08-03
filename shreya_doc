@@ -15,3 +15,75 @@ nothing to worry just close vs code and open it again.
 why? coz it takes time for vs to digest this new version of ts you just loaded a min ago..
 yah we will reopen it and this time everything will be in place.
 
+03-08-25
+well here we are..
+i am figuring out a way to skip doing the splash screen ( basically leave it for my teammate to take on). still i need to create this button to jump to login page that i need to design.
+yah a random issue i face which led me to stay stuck for hr. (literally idiotic reasonon). the expo on my phone was not working.i literally donwloaded that latest cli version again... good to know we don't have to mess with the setup in the mean time.
+The common sense is that if a code worked a week ago then what can potentially coz "something went wrong issue" 
+when i saw the log it say java.io.expection in expo when i seached further after loading the cli and deleting it and again loading it. well tirinig..right
+
+so yah the issue was that when you are running expo kindly connect your laptop and phone to same network ot hosts the prototype on LAN and i was running my laptop using university network and phone with my own net.
+
+so to fix this grand issue that sounds so big i simply need to connect my phone to college wifi...people who always use only one network will not run into this kind of issue often.
+
+yah back to the splash screen.
+so i made a button on the same page i made before.
+used const router=useRouter() and then you can use OnPress()=>router.push()
+and router.replace()
+to switch the page when you that touchableOpacity option.
+let me elaborate..
+
+so react native is like html and css with js in the middle some time..for making things functional.
+
+html type tags you will find view instead of sections .
+you can add style to this view you can ahve text inside this view and then may be add style to that you can add in line style like 
+<!-- <View style={{border:1,color:white}}>
+<Text style={{color:blue, fontFamily:'outfit'}}> -->
+or you can hace style sheet and use the tag names to apply styles
+<!-- const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#d1f1fbff',
+  })} -->
+
+  which you can tell seperately and then again you can use 
+   <!-- <View style={styles.container}><Text>Get Started</Text></View> -->
+simply use styles dot name_of_style, using all this you can design a page.
+
+all this will make the layout now what about clicks .
+you need to change view to touchableOpacity to make the onPress event work for redirecting user to the next page...
+<!-- <TouchableOpacity onPress()=>router.push('path_to_the_next_page')></TouchableOpacity> --> 
+so we have two of them we have 
+router.push("path") and router.replace("path")
+push keep the history of page visited so if you press back you will to the previsous page in stack where as if you press replace thne you will be redirected to the next page without history.
+so if you press back you won't go back to previous page you will start from the very inital page so yah...
+
+what else is, it is preferred to use colors with variable name.
+so in constant you get this Colors.ts as a part of boiler plate code.
+it does not exists simply for us to ignore.
+every time you are using a color has a pallet that you can use and reuse 
+in this color.ts define it in primary section and then use dot operator to access it by name to make things simple...
+
+in the near future if you ever stuble on this app and you feel like changing the style then you can use this to try out differnt pallet without having to worry about changing the same color everywhere.
+get into the habit of using it.
+
+and yes to use it correctly you need to import it correctly like this
+import { Colors } from './../../../constants/Colors';
+so yah you can mess up and don't do it to a degree that it cannot be reverted back
+...or you can even do that as long as you can recreate the whole thing again.
+<!-- :) -->
+
+we can use things like TextInput which is self closing to make text areas.
+then we can put some box using  placeholder="enter your email".
+if you want it to be a password entry then use secureTextEntry={true}
+that will convert your letters to dots while you enter the password...cool right...
+
+Alright all this is my understanding of react native so far.
+i wonder if any one would read it.
+if someone does then i hope it helps them to fix minor bugs along the way.
+
+Result: i completed the layout for the sign-in page.
+signing off for today.
+
