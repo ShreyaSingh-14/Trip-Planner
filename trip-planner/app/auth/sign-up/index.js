@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
-import Colors from './../../../constants/Colors';
+import Colors from '../../../constants/Colors';
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -12,7 +12,11 @@ export default function SignUp() {
   }, []);
 
   return (
+<<<<<<< HEAD
+    <View style={{ height: '100%', padding: 25, paddingTop: 50, backgroundColor: Colors.WHITE }}>
+=======
     <View style={{ padding: 25, paddingTop: 50, backgroundColor: Colors.WHITE }}>
+>>>>>>> 484b39972ab3899cbb159399b8717ef0c324cf8b
       <Text style={{ fontFamily: 'outfit-bold', fontSize: 35 }}>
         Create New Account
       </Text>
@@ -44,18 +48,19 @@ export default function SignUp() {
         />
       </View>
 
-      {/* Sign In Button */}
+      {/* Create Account Button */}
       <TouchableOpacity style={styles.signInButton}>
         <Text style={styles.signInText}>Create Account</Text>
       </TouchableOpacity>
 
-      {/* Create Account Button */}
+      {/* Sign In Button */}
       <TouchableOpacity 
-      onPress={()=>router.replace('/auth/sign-in')}
-      // we user replace to jump to the next page without mainting history or previous page
-      style={styles.createAccountButton}>
+        onPress={() => router.replace('/auth/sign-in')}
+        style={styles.createAccountButton}
+      >
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
+
     </View>
   );
 }
@@ -79,7 +84,9 @@ const styles = StyleSheet.create({
   },
   signInButton: {
     backgroundColor: Colors.PRIMARY,
+=======
     backgroundColor: Colors.GRAY,
+>>>>>>> 484b39972ab3899cbb159399b8717ef0c324cf8b
     padding: 15,
     borderRadius: 15,
     alignItems: 'center',
@@ -96,6 +103,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     borderWidth: 1,
+<<<<<<< HEAD
+    borderColor: Colors.PRIMARY,
+  },
+  createAccountText: {
+    color: Colors.PRIMARY,
+    fontFamily: 'outfit-bold',
+    fontSize: 16,
+  },
+});
+=======
     borderColor: Colors.GRAY,
   },
   createAccountText: {
@@ -104,3 +121,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+>>>>>>> 484b39972ab3899cbb159399b8717ef0c324cf8b
