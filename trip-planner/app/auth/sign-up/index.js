@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import React, { useEffect } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
 import Colors from '../../../constants/Colors';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -12,8 +13,11 @@ export default function SignUp() {
   }, []);
 
   return (
-    <View style={{ padding: 25, paddingTop: 50, backgroundColor: Colors.WHITE }}>
-      <Text style={{ fontFamily: 'outfit-bold', fontSize: 35 }}>
+    <View style={{ height:'100%', padding: 25, paddingTop: 50, backgroundColor: Colors.WHITE }}>
+      <TouchableOpacity onPress={() => router.back()}>
+        <Ionicons style={{marginTop:20, marginBottom:20}} name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
+      <Text style={{fontFamily: 'outfit-bold', fontSize: 35 }}>
         Create New Account
       </Text>
 
@@ -80,7 +84,6 @@ const styles = StyleSheet.create({
   },
   signInButton: {
     backgroundColor: Colors.PRIMARY,
-    backgroundColor: Colors.GRAY,
     padding: 15,
     borderRadius: 15,
     alignItems: 'center',
@@ -97,10 +100,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     borderWidth: 1,
-    borderColor: Colors.GRAY,
+    borderColor: Colors.PRIMARY,
   },
   createAccountText: {
-    color: Colors.GRAY,
+    color: Colors.PRIMARY,
     fontFamily: 'outfit-bold',
     fontSize: 16,
   },
