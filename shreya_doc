@@ -73,7 +73,7 @@ and yes to use it correctly you need to import it correctly like this
 import { Colors } from './../../../constants/Colors';
 so yah you can mess up and don't do it to a degree that it cannot be reverted back
 ...or you can even do that as long as you can recreate the whole thing again.
-<!-- :) -->
+<!-- :)  -->
 
 we can use things like TextInput which is self closing to make text areas.
 then we can put some box using  placeholder="enter your email".
