@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     padding: 25,
     backgroundColor: Colors.WHITE,
     paddingTop: 50,
+    height: '100%', 
   },
   header: {
     marginBottom: 40,
