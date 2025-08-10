@@ -156,6 +156,21 @@ if we type somehting we will see that on the console which shows it is getting a
 SUPER COOOOOL Stuff....
 we can print write any thing to make text mountain of text and emoji...
 
+so we used 
+onChangeText={(value) => setEmail(value)} 
+this to set email password, full name and all for entry the code section checks if the data matches the fire base data
+we can use 
+ ToastAndroid.show('Please enter a valid email address.', ToastAndroid.LONG);
+ to show msg to user for entering right email or show msg in case input field in empty 
+ this shows clean msg in case of invalid input
+ so yah authentication is done from my end.
+ now we will start from the files in (tabs) section
+ it has files as 
+ layout, discover, mytrip, profile that will be completed in the next update.
+ the index that is below the tabs folder is there to for redirection from login to home page and even check if the user is already logged in
+ then there is _layout it is there for encapulated design, where tabs are stacked over one another,
+ we will continue... to move forward.
+  
 
  
 
