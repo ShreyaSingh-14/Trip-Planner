@@ -20,7 +20,7 @@ export default function Login() {
         <Text style={{
           fontSize: 25,
           fontFamily: 'outfit-bold'
-        }}>AI Trip Planner</Text>
+        }}>AI Trip Planner </Text>
 
         <Text style={{
           fontFamily: 'outfit',
@@ -36,7 +36,7 @@ export default function Login() {
         style={styles.button}
         onPress={() => router.push('/auth/sign-in')}
       >
-        <Text style={styles.buttonText}>Get Started</Text>
+        <Text style={styles.buttonText}>Get Started </Text>
       </TouchableOpacity>
       </View>
 
@@ -66,12 +66,14 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 40,
     backgroundColor: Colors.PRIMARY, 
-    borderRadius: 99,
+    borderRadius: 15,
   },
   buttonText: {
     color: Colors.WHITE, 
     textAlign: 'center',
     fontSize: 18,
     fontFamily: 'outfit',
+    paddingLeft: 40,
+    paddingRight: 40
   },
 });

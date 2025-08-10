@@ -87,3 +87,75 @@ if someone does then i hope it helps them to fix minor bugs along the way.
 Result: i completed the layout for the sign-in page.
 signing off for today.
 
+10/08/25
+working on authentication
+firebase offers a range of sign in and sign up options. we can use google , face book , and other accounts to sign in. 
+
+i creatd a project in firebase named ai- trip planner by selecting the web.
+ then in once it is created we need to use "npm install fibase"
+  to install libararies we will be useing then we simply copy the code segment provided for establising connection with the fire base and put it in the configs/ FirebaseConfig.js file to make sure it can be used.
+
+  then we add 
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+
+we use export to make sure we can use this througth out the application ...now you will run into an issue sayint that getAuth is not improted ..
+in that case in the same configuration file you need to import...file using 
+import { getAuth } from "firebase/auth";
+
+this will fix it.
+now we go to firebsae documentation..to find sign up and sign in section code and try to put that in a functioon and import the necessary sections as mentioned in the code snippit 
+first i am doing sign up section for that i got
+====================================================
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log('User created:', user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+    console.error('Error creating user:', errorCode, errorMessage);
+  });
+  ======================================================
+  put this in a const funtion like
+  const OnCreateAccount=()=>
+  {
+    //here
+  }
+
+  we can print some console msg just to be sure that thigs work well.
+  it basically logs the errors.
+
+in firebase ...after making the project we simply need to select the authentication option i choose email/ password then enabled it on the other page.
+
+now in order to connect the function OnCreateAccount(), we can create const here the email is the variable and setEmail works like getter/ setter so we can either import useState from react by 
+import {useState} from 'React' 
+then..
+
+const [email, setEmail] = useState();
+const [password, setPassword] = useState();
+  
+or
+we can also use 
+React.useState()
+as const [email, setEmail] = React.useState();
+
+we also need to import 
+import {createUserWithEmailAndPassword } from 'firebase/auth';
+import {auth} from './../../../configs/FirebaseConfig';
+these will give us access to the auth we exported from the FirebaseConfig file earlier
+
+in order to get access to the values entere in the input box we have a method on change... 
+OnChange={(value)}=>console.log("to see what we see")
+if we type somehting we will see that on the console which shows it is getting access to the data being entered.
+
+SUPER COOOOOL Stuff....
+we can print write any thing to make text mountain of text and emoji...
+
+
+ 
+
