@@ -1,16 +1,46 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
-import Colors from '../../../constants/Colors';
+import Colors from './../../../constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {createUserWithEmailAndPassword } from 'firebase/auth';
+import {auth} from './../../../configs/FirebaseConfig';
+import { useState } from 'react';
+import { ToastAndroid } from 'react-native';
 
 export default function SignUp() {
   const navigation = useNavigation();
   const router = useRouter();
 
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [fullName, setFullName] = useState();
+
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
+
+  const OnCreateAccount=()=>{
+    if(!email || !password || !fullName)
+      {
+      ToastAndroid.show('Please fill all the details...', ToastAndroid.LONG);
+      return;
+    }
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    router.replace('/mytrip');
+    console.log('User created');
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+    console.error('Error creating user:', errorCode, errorMessage);
+  });
+  }
 
   return (
     <View style={{ height:'100%', padding: 25, paddingTop: 50, backgroundColor: Colors.WHITE }}>
@@ -24,7 +54,10 @@ export default function SignUp() {
       {/* User Full Name */}
       <View style={{ marginTop: 50 }}>
         <Text style={{ fontFamily: 'outfit' }}>Full Name</Text>
-        <TextInput style={styles.input} placeholder="Enter Full Name" />
+        <TextInput 
+        style={styles.input} 
+        placeholder="Enter Full Name"
+        onChangeText={(value)=>setFullName(value)} />
       </View>
 
       {/* Email Field */}
@@ -34,6 +67,7 @@ export default function SignUp() {
           style={styles.input}
           placeholder="Enter your email"
           placeholderTextColor={Colors.GRAY}
+           onChangeText={(value)=>setEmail(value)} 
         />
       </View>
 
@@ -45,19 +79,22 @@ export default function SignUp() {
           style={styles.input}
           placeholder="Enter your password"
           placeholderTextColor={Colors.GRAY}
+           onChangeText={(value)=>setPassword(value)} 
         />
       </View>
 
       {/* Create Account Button */}
-      <TouchableOpacity style={styles.signInButton}>
+      <TouchableOpacity 
+      onPress={OnCreateAccount}
+      style={styles.signInButton}>
         <Text style={styles.signInText}>Create Account</Text>
       </TouchableOpacity>
 
       {/* Sign In Button */}
       <TouchableOpacity 
-        onPress={() => router.replace('/auth/sign-in')}
-        style={styles.createAccountButton}
-      >
+      onPress={()=>router.replace('/auth/sign-in')}
+      // we user replace to jump to the next page without mainting history or previous page
+        style={styles.createAccountButton}>
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
 
@@ -72,7 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15,
     borderColor: Colors.GRAY,
-    marginBottom: 10,
+    // marginBottom: 10,
     fontSize: 16,
   },
   inputContainer: {
@@ -81,13 +118,14 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'outfit',
     marginBottom: 5,
+    fontSize: 16
   },
   signInButton: {
     backgroundColor: Colors.PRIMARY,
     padding: 15,
     borderRadius: 15,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 40,
   },
   signInText: {
     color: '#fff',
@@ -105,6 +143,6 @@ const styles = StyleSheet.create({
   createAccountText: {
     color: Colors.PRIMARY,
     fontFamily: 'outfit-bold',
-    fontSize: 16,
+    fontSize: 18,
   },
 });
