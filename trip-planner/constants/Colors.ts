@@ -28,6 +28,8 @@ export const Colors = {
   WHITE: '#FFFFFF',
   BLACK: '#000000',
   GRAY: '#9e9e9eff',
+  BLUE:'#0a7ea4ff',
+  LIGHT_BLUE: '#0a7ea4cc'
 };
 
 export default Colors;
