@@ -2,12 +2,20 @@ Hey Cheetah!!!
 
 yayyay I've started working too!!!
 
-5/8/25
-completed signu-up page ... Go Back nutton is missing.. completed till 55:42
+05-08-25
+Kicked off with the signup page.
+Layout? Done. Input fields? Done. Go Back button? …yeah, still on vacation.
+Stopped at 55:42, feeling pretty good until I realized tomorrow-I will have to finish what today I avoided.
 
-9/8/25
-Heyy,
-So for today, I got a couple of things done:
-  * Wrapped up the splash screen (23:22 → 36:17) — it’s set up, styled, and transitions are working.
-  * Finished the entire signup page (51:53 → 58:21) — layout, input fields, and basic styling all done.
-*Both are up and running now, so we can start linking them or adding the extra stuff next.
+09-08-25
+Two wins today.
+  -Splash Screen (23:22 → 36:17) — finally made it look less like a default template and more like an actual app intro. Smooth transitions too.
+  -Signup Page (51:53 → 58:21) — wrapped it up completely. No more “half-finished form” vibes.
+  -Both working fine — no explosions, no mysterious red errors. A rare peaceful day in dev land.
+
+11-08-25
+Today was bug-fighting day.
+  -Worked on MyTrip and StartNewTripCard, but they started throwing errors before I even blinked.
+  -In MyTrip, I forgot to import useState (React was definitely judging me). Tried using a color that didn’t exist, and my JSX looked like it had been attacked by mismatched brackets. Fixed all that, used a proper color from constants, and got the conditions to work right.
+  -StartNewTripCard had the same color problem and was missing TouchableOpacity. That’s why tapping stuff felt like tapping a photo. Fixed that and cleaned the whole file so it didn’t look like it was written during a coffee rush.
+By the end, both components actually worked, no red errors, no angry console messages — just sweet, calm compilation.
