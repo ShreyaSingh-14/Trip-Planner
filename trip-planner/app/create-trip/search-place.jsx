@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'r
 import { useNavigation } from 'expo-router';
 import Colors from '../../constants/Colors';
 import { CreateTripContext } from '../../context/CreateTripContext';
+import { useRouter } from 'expo-router';
 
 export default function SearchPlace() {
   const navigation = useNavigation();
@@ -10,6 +11,7 @@ export default function SearchPlace() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const typingTimeout = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     navigation.setOptions({
@@ -80,8 +82,8 @@ export default function SearchPlace() {
 
       // Navigate back after state update
       setTimeout(() => {
-        navigation.goBack();
-      }, 0);
+        router.push('/create-trip/select-traveler');
+      }, 100);
 
       return updatedData;
     });
