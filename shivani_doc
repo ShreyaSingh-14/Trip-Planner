@@ -2,12 +2,21 @@ Hey Cheetah!!!
 
 yayyay I've started working too!!!
 
-5/8/25
-completed signu-up page ... Go Back nutton is missing.. completed till 55:42
+05-08-25
+Kicked off with the signup page.
+Layout? Done. Input fields? Done. Go Back button? …yeah, still on vacation.
+Stopped at 55:42, feeling pretty good until I realized tomorrow-I will have to finish what today I avoided.
 
-9/8/25
-Heyy,
-So for today, I got a couple of things done:
-  * Wrapped up the splash screen (23:22 → 36:17) — it’s set up, styled, and transitions are working.
-  * Finished the entire signup page (51:53 → 58:21) — layout, input fields, and basic styling all done.
-*Both are up and running now, so we can start linking them or adding the extra stuff next.
+09-08-25
+Two wins today.
+    -Splash Screen (23:22 → 36:17) — finally made it look less like a default template and more like an actual app intro. Smooth transitions too.
+    -Signup Page (51:53 → 58:21) — wrapped it up completely. No more “half-finished form” vibes.
+    -Both working fine — no explosions, no mysterious red errors. A rare peaceful day in dev land.
+
+11-08-25
+Today was bug-fighting day.
+    -MyTrip: Finally remembered to invite useState to the party (React was getting lonely). Swapped out mystery colors for proper constants and untangled some wild JSX brackets. Synced it with the new _layout, made sure trip data shows up without throwing tantrums, and gave the styling a quick comb.
+    -StartNewTripCard: Same color drama here—fixed. Added TouchableOpacity so buttons actually do something when tapped. Cleaned up the file so it no longer looks like it was written five minutes before a deadline. Alignment and spacing now play nicely with the rest of the app.
+    -_layout: Gave the main navigation a proper cleaning—organized screens, ditched useless code, and made sure routing doesn’t get lost.
+Result: Both components now behave, look consistent, and work smoothly in the app. Console is quiet… almost too quiet.
+
