@@ -176,3 +176,8 @@ we can use
  the unavoidable happened ..
  i was about to use google api for search then it asked for billing so i looked for alternate that lets you use it without billing as long as the request is 1 per sec...so i added a time out for 1000ms to be safe...if something goes wrong it will not work...and even not respond to me temporarily ..anyway 
 
+ 13-8-25
+ so yah i got stuck on adding a callender for some reason the expo calender was not supporting. and i did not expect that may version of the callender exist to i used the alternate took ages to seach for the right one that did the job, and now we can do select tarvel dates in range... 
+ 
+
+
