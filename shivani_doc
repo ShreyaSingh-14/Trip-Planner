@@ -20,3 +20,9 @@ Today was bug-fighting day.
     -_layout: Gave the main navigation a proper cleaning—organized screens, ditched useless code, and made sure routing doesn’t get lost.
 Result: Both components now behave, look consistent, and work smoothly in the app. Console is quiet… almost too quiet.
 
+12-08-25
+Traveler Picker Day!!!
+    -SelectTraveler: Built the whole “Who’s Travelling?” screen. Users can now choose between Just Me, Couple, Family, or Friends—complete with cute little icons (because visuals matter). Hooked it into CreateTripContext so the choice actually saves instead of just looking pretty. Header styling and padding tuned for a clean look.
+    -Options.js: Created a tidy little list of travel party types with titles, descriptions, icons, and people counts. Basically, the “menu” for the traveler picker.
+    -OptionCard: Made each option look like a proper card. Highlighting now works when selected (so users know what they picked instead of guessing). Borders change, colors match the app theme, and everything feels consistent.
+Result: The app now politely asks “Who’s Travelling?” and remembers your answer. No more planning trips into the void.
