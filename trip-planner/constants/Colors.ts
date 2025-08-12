@@ -29,7 +29,8 @@ export const Colors = {
   BLACK: '#000000',
   GRAY: '#9e9e9eff',
   BLUE:'#0a7ea4ff',
-  LIGHT_BLUE: '#0a7ea4cc'
+  LIGHT_BLUE: '#0a7ea4cc',
+  LIGHT_GRAY: '#f3f1f1ff',
 };
 
 export default Colors;
