@@ -1,86 +1,111 @@
-import { View, Text, FlatList , TouchableOpacity} from 'react-native'
-import React, { useEffect } from 'react'
-import { useNavigation } from 'expo-router';
-import { useRouter } from 'expo-router';
-import Colors from './../../constants/Colors'
-import {SelectTravelesList} from './../../constants/Options'
-import { CreateTripContext } from '../../context/CreateTripContext'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link, useNavigation } from 'expo-router';
+import Colors from './../../constants/Colors';
+import { SelectTravelesList } from './../../constants/Options';
+import { CreateTripContext } from '../../context/CreateTripContext';
 import OptionCard from '../../components/CreateTrip/OptionCard';
-import { useState } from 'react';
 
 export default function SelectTraveler() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const [selectedTraveler, setSelectedTraveler] = useState();
+  const { tripData, setTripData } = useContext(CreateTripContext);
 
-    const [selectedTraveler, setSelectedTraveler]=useState();
-    const { tripData, setTripData } = React.useContext(CreateTripContext);
-    
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTransparent: true,
+      headerTitle: '',
+    });
+  }, [navigation]);
 
-    useEffect(() => {
-        navigation.setOptions({ 
-            headerShown: true,
-            headerTransparent: true,
-            headerTitle: '',
-        });}, [])
-
-    useEffect(() => {
-        setTripData({...tripData,
-            travelerCount:selectedTraveler
-        })
-    }, [selectedTraveler]);
+  useEffect(() => {
+    setTripData({
+      ...tripData,
+      travelerCount: selectedTraveler,
+    });
+  }, [selectedTraveler]);
 
   return (
-     <View style={{ 
-     paddingTop: 65, 
-     backgroundColor: Colors.WHITE,
-     height: '90%',
-     }}>
-        <Text style={{
-            fontFamily: 'outfit-bold',
-            fontSize: 30,
-            paddingLeft: 25,
-            color: Colors.PRIMARY,
-            marginTop: 20,
+    <View
+      style={{
+        flex: 1,
+        paddingTop: 65,
+        backgroundColor: Colors.WHITE,
+      }}
+    >
+      {/* Title */}
+      <Text
+        style={{
+          fontFamily: 'outfit-bold',
+          fontSize: 30,
+          paddingLeft: 25,
+          color: Colors.PRIMARY,
+          marginTop: 20,
         }}
-        >Who's Travelling?</Text>
+      >
+        Who's Travelling?
+      </Text>
 
-        <View style={{
-            marginTop: 15,
-            paddingHorizontal: 25 
-        }}>
-            <Text style={{
-                fontFamily: 'outfit-bold',
-                fontSize: 23,
-            }}>Choose your traveles</Text>
-        
-            <FlatList
-                    data={SelectTravelesList}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity 
-                            onPress={() => setSelectedTraveler(item)}
-                            style={{
-                                marginVertical: 10,
-                            }}
-                        > 
-                            <OptionCard option={item} selectedTraveler={selectedTraveler} />
-                        </TouchableOpacity> 
-                    )}
-                />
+      {/* Subtitle */}
+      <View style={{ marginTop: 15, paddingHorizontal: 25 }}>
+        <Text
+          style={{
+            fontFamily: 'outfit-bold',
+            fontSize: 23,
+            marginBottom: 10,
+          }}
+        >
+          Choose your travelers
+        </Text>
 
-        </View>    
+        <FlatList
+          data={SelectTravelesList}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => setSelectedTraveler(item)}
+              style={{
+                marginVertical: 8,
+              }}
+              activeOpacity={0.7}
+            >
+              <OptionCard option={item} selectedTraveler={selectedTraveler} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
 
-        <TouchableOpacity style={{
-            padding: 15,
-            backgroundColor: Colors.PRIMARY,
-            borderRadius: 15,
-            marginTop: 20
-        }}>
-            <Text style={{
-                textAlign: 'center',
-                color: Colors.WHITE,
-                fontFamily: 'outfit-medium',
-                fontSize:20
-            }}>Continue</Text>
-        </TouchableOpacity>
-        </View>
-)
+      {/* Continue Button */}
+      <TouchableOpacity
+        style={{
+          padding: 15,
+          backgroundColor: selectedTraveler ? Colors.PRIMARY : Colors.LIGHT_GRAY,
+          borderRadius: 15,
+          marginTop: '20',
+          marginHorizontal: 25,
+          marginBottom: 30,
+        }}
+        disabled={!selectedTraveler}
+      >
+        <Link
+          href="/create-trip/select-dates"
+          style={{
+            width: '100%',
+          }}
+        >
+          <Text
+            style={{
+              textAlign: 'center',
+              color: Colors.WHITE,
+              fontFamily: 'outfit-medium',
+              fontSize: 20,
+            }}
+          >
+            Continue
+          </Text>
+        </Link>
+      </TouchableOpacity>
+    </View>
+  );
 }
