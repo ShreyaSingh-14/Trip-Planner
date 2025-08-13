@@ -70,7 +70,7 @@ export default function SelectTraveler() {
               }}
               activeOpacity={0.7}
             >
-              <OptionCard option={item} selectedTraveler={selectedTraveler} />
+              <OptionCard option={item} selectedOption={selectedTraveler} />
             </TouchableOpacity>
           )}
         />
