@@ -2,8 +2,8 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import Colors from './../../constants/Colors';
 
-export default function OptionCard({ option, selectedTraveler }) {
-  const isSelected = selectedTraveler?.id === option?.id;
+export default function OptionCard({ option, selectedOption }) {
+  const isSelected = selectedOption?.id === option?.id;
 
   return (
     <View

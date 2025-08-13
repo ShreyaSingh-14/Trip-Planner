@@ -24,7 +24,28 @@ export const SelectTravelesList = [
         id: 4,
         title: 'Friends',
         desc: 'A group of friends on an adventure',
-        icon:'🚢',
+        icon:'🏝️',
         people: '2 people'
     }
 ]   
+
+export const SelectBudgetOptions = [
+    {
+        id: 1,
+        title: 'Budget',
+        desc: 'Affordable options for budget travelers',
+        icon:'💵',
+    },
+    {
+        id: 2,
+        title: 'Moderate',
+        desc: 'Comfortable options for mid-range travelers',
+        icon:'💳',
+    },
+    {
+        id: 3,
+        title: 'Luxury',
+        desc: 'High-end options for luxury travelers',
+        icon:'💸',
+    }
+];
