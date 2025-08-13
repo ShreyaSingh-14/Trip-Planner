@@ -1,15 +1,14 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { router, useNavigation } from 'expo-router';
+import { useNavigation, router } from 'expo-router';
 import { Calendar } from 'react-native-calendars';
 import Colors from './../../constants/Colors';
-import { useRouter } from 'expo-router';
+import { CreateTripContext } from './../../context/CreateTripContext'; // ✅ Import context
 
 function getDatesBetween(startDateStr, endDateStr) {
   const startDate = new Date(startDateStr);
   const endDate = new Date(endDateStr);
   const dates = {};
-  const router = useRouter();
   let currentDate = startDate;
 
   while (currentDate <= endDate) {
@@ -27,6 +26,7 @@ export default function SelectDates() {
   const navigation = useNavigation();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const { tripData, setTripData } = useContext(CreateTripContext); // ✅ Context access
 
   useEffect(() => {
     navigation.setOptions({
@@ -39,12 +39,10 @@ export default function SelectDates() {
   const onDayPress = (day) => {
     const selectedDate = day.dateString;
 
-    // If no start OR both selected, reset selection
     if (!startDate || (startDate && endDate)) {
       setStartDate(selectedDate);
       setEndDate(null);
     } else {
-      // Ensure the end date is not before start date
       if (new Date(selectedDate) < new Date(startDate)) {
         setStartDate(selectedDate);
         setEndDate(null);
@@ -52,7 +50,7 @@ export default function SelectDates() {
         const diffInMs = new Date(selectedDate) - new Date(startDate);
         const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 
-        if (diffInDays > 30) {
+        if (diffInDays > 15) {
           Alert.alert('Limit Exceeded', 'You can only select a range up to 15 days.');
         } else {
           setEndDate(selectedDate);
@@ -71,24 +69,28 @@ export default function SelectDates() {
     };
   } else if (startDate) {
     markedDates = {
-      [startDate]: {
-        selected: true,
-        color: Colors.PRIMARY,
-        textColor: Colors.WHITE,
-      },
+      [startDate]: { selected: true, color: Colors.PRIMARY, textColor: Colors.WHITE },
     };
   }
 
+  const handleContinue = () => {
+    const totalDays = Math.ceil(
+      (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+    ) + 1;
+
+    // ✅ Save into context
+    setTripData({
+      ...tripData,
+      startDate,
+      endDate,
+      totalNoOfDays: totalDays,
+    });
+
+    router.push('/create-trip/select-budget');
+  };
+
   return (
-    <View
-      style={{
-        flex: 1,
-        padding: 25,
-        paddingTop: 75,
-        backgroundColor: Colors.WHITE,
-      }}
-    >
-      {/* Title */}
+    <View style={{ flex: 1, padding: 25, paddingTop: 75, backgroundColor: Colors.WHITE }}>
       <Text
         style={{
           marginTop: 20,
@@ -101,7 +103,6 @@ export default function SelectDates() {
         Travel Dates
       </Text>
 
-      {/* Calendar */}
       <Calendar
         onDayPress={onDayPress}
         markingType={'period'}
@@ -170,10 +171,7 @@ export default function SelectDates() {
           marginTop: 30,
         }}
         disabled={!startDate || !endDate}
-        onPress={() => {
-          console.log("Selected range:", startDate, "to", endDate);
-          router.push('/create-trip/select-budget');
-        }}
+        onPress={handleContinue}
       >
         <Text style={{ color: Colors.WHITE, fontSize: 18, fontWeight: 'bold' }}>Continue</Text>
       </TouchableOpacity>
