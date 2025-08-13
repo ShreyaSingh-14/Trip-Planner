@@ -26,3 +26,9 @@ Traveler Picker Day!!!
     -Options.js: Created a tidy little list of travel party types with titles, descriptions, icons, and people counts. Basically, the “menu” for the traveler picker.
     -OptionCard: Made each option look like a proper card. Highlighting now works when selected (so users know what they picked instead of guessing). Borders change, colors match the app theme, and everything feels consistent.
 Result: The app now politely asks “Who’s Travelling?” and remembers your answer. No more planning trips into the void.
+
+13-08-2025
+Today was Budget & Review all selection day!!!
+    -We added a Budget screen so travelers can choose whether they’re going all-out luxury or keeping it low-budget. It’s tied into the trip details, and if someone tries to skip it, they get a cheeky toast saying, “Nope, pick one.”
+    -Once a budget is picked, the Continue button wakes up and takes you to the new Review Trip screen. That screen neatly shows your destination, dates, number of travelers, and budget. There’s also a big “Make My Trip” button so you can lock it all in.
+    -Basically, now the app makes sure you decide your spending style before packing your virtual bags.
