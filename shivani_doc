@@ -32,3 +32,7 @@ Today was Budget & Review all selection day!!!
     -We added a Budget screen so travelers can choose whether they’re going all-out luxury or keeping it low-budget. It’s tied into the trip details, and if someone tries to skip it, they get a cheeky toast saying, “Nope, pick one.”
     -Once a budget is picked, the Continue button wakes up and takes you to the new Review Trip screen. That screen neatly shows your destination, dates, number of travelers, and budget. There’s also a big “Make My Trip” button so you can lock it all in.
     -Basically, now the app makes sure you decide your spending style before packing your virtual bags.
+
+14-08-25
+Built the whole profile page layout today. Added a profile image, name, email, and an Edit Profile button. Also set up menu sections for Settings, Trips, and Support with their own list items and icons. Styling is in place so it looks clean and organized.
+Right now, it’s just the skeleton — the buttons and links are ready but they don’t lead anywhere yet. Navigation will be added later to make it fully functional.
