@@ -179,5 +179,5 @@ we can use
  13-8-25
  so yah i got stuck on adding a callender for some reason the expo calender was not supporting. and i did not expect that may version of the callender exist to i used the alternate took ages to seach for the right one that did the job, and now we can do select tarvel dates in range... 
  
-
-
+15/8/25
+well i have simply added the loading gif of a duck we all like to watch as it walks..for entertainment purpose and then made sure to integrate gemini api to get the response we need to generate the trip we want as per the prompt..so yah..now the next stip is to ensure that data gets automatically written in firebase, which surely be challenging but we will do it. end of story for today. i am signing off.
