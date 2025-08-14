@@ -11,7 +11,7 @@ export default function Profile() {
     navigation.setOptions({
       headerShown: true,
       headerTransparent: true,
-      headerTitle: 'Profile',
+      headerTitle: '',
     });
   }, []);
 
@@ -19,7 +19,7 @@ export default function Profile() {
     {
       section: 'Settings',
       items: [
-        { icon: 'person-outline', label: 'Profile', iconLib: Ionicons, onPress: () => navigation.push('/profile/edit') },
+        // { icon: 'person-outline', label: 'Profile', iconLib: Ionicons, onPress: () => navigation.push('/profile/edit') },
         { icon: 'notifications-none', label: 'Notifications', iconLib: MaterialIcons, onPress: () => navigation.push('/notifications') },
       ],
     },
@@ -42,11 +42,11 @@ export default function Profile() {
   return (
     <ScrollView style={{ backgroundColor: Colors.WHITE, height: '100%' }}>
       {/* Profile Header */}
-      <View style={{ paddingTop: 80, paddingHorizontal: 20, alignItems: 'center', marginBottom: 30 }}>
-        <Image
-          source={{ uri: 'https://i.pinimg.com/1200x/f6/70/65/f67065d0a5ae68cdc6aaaafa690f815f.jpg' }} 
-          style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }}
-        />
+      <Text style={{
+        padding:20, marginTop:30, fontFamily:'outfit-bold',fontSize:40
+      }}> Profile</Text>
+      <View style={{ paddingHorizontal: 20, alignItems: 'center', marginBottom: 30, marginTop:5 }}>
+       
         <Text style={{ fontFamily: 'outfit-bold', fontSize: 22 }}>GuideX</Text>
         <Text style={{ fontFamily: 'outfit', fontSize: 14, color: Colors.GRAY }}>guidex@example.com</Text>
 
@@ -58,7 +58,7 @@ export default function Profile() {
             paddingVertical: 8,
             borderRadius: 20,
           }}
-          onPress={() => navigation.push('/profile/edit')}
+         // onPress={() => navigation.push('/profile/edit')}
         >
           <Text style={{ color: Colors.WHITE, fontFamily: 'outfit-medium' }}>Edit Profile</Text>
         </TouchableOpacity>
@@ -113,6 +113,7 @@ export default function Profile() {
           </View>
         ))}
       </View>
+      <Text style={{color:Colors.GRAY, fontFamily:'outfit', fontSize:15, paddingLeft:95}}>Developed by GuideX @2025</Text>
     </ScrollView>
   );
 }
