@@ -1,12 +1,51 @@
 import { View, Text } from 'react-native';
-import React, { useContext } from 'react';
+import React, { use, useContext ,useState} from 'react';
 import { Video } from 'expo-av';
 import Colors from '../../constants/Colors';
 import { CreateTripContext } from '../../context/CreateTripContext';
+import { AI_PROMPT } from '../../constants/Options';
+import { useEffect } from 'react';
+import { chatSession } from '../../configs/AiModel';
+import { useRouter } from 'expo-router';
+
 
 export default function GenerateTrip() {
   const videoRef = React.useRef(null);
-  const {tripData,setTripData}=useContext(CreateTripContext);
+const { tripData, setTripData } = useContext(CreateTripContext);
+const [loading,setLoading]=useState(false);
+const router=useRouter();
+useEffect(() => {
+  if (tripData) {
+    tripData&&GenerateAiTrip();
+  }
+}, [tripData]);
+
+const GenerateAiTrip = async () => {
+  setLoading(true);
+
+  const FINAL_PROMPT = AI_PROMPT
+    .replace('{location}', tripData.locationInfo?.name || '')
+    .replace('{totalDays}', tripData.totalNoOfDays?.toString() || '')
+    .replace('{totalNight}', (tripData.totalNoOfDays ? tripData.totalNoOfDays - 1 : 0).toString())
+    .replace('{traveler}', tripData.travelerCount?.title)
+    .replace('{budget}', tripData.budget)
+    .replace('{totalDays}', tripData.totalNoOfDays?.toString() || '')
+    .replace('{totalNight}', (tripData.totalNoOfDays ? tripData.totalNoOfDays - 1 : 0).toString());
+
+  console.log("FINAL_PROMPT:", FINAL_PROMPT);
+
+  try {
+    const result = await chatSession.sendMessage(FINAL_PROMPT);
+    const responseText = await result.response.text();
+    console.log("AI Response:", responseText);
+  } catch (error) {
+    console.error("Error generating trip:", error);
+  }
+
+  setLoading(false);
+  router.push('(tabs)/mytrip');
+};
+
   return (
     <View
       style={{
