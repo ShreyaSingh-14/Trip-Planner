@@ -100,3 +100,4 @@ const GenerateAiTrip = async () => {
     </View>
   );
 }
+//adding comment for no reason
