@@ -7,5 +7,7 @@ export default function discover() {
     <View>
       <Text>discover</Text>
     </View>
+    //again adding comment for no reason, just to test git commit and push functionality
+
   )
 }
