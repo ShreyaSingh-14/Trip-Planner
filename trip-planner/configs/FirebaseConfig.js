@@ -2,13 +2,16 @@
 import { initializeApp } from "firebase/app";
 import {getReactNativePersistence, initializeAuth } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getFirestore} from "firebase/firestore"
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AI",//the previous one is deprecated- it does not workS
+  apiKey: "AIzaSyA7T7J4sU0Rt84FNuO1_UosX4PKVMLxcW8",//the previous one is deprecated- it does not workS
   authDomain: "ai-trip-planner-88f43.firebaseapp.com",
   projectId: "ai-trip-planner-88f43",
   storageBucket: "ai-trip-planner-88f43.firebasestorage.app",
@@ -22,4 +25,5 @@ export const app = initializeApp(firebaseConfig);
 export const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 }) ;
+export const db=getFirestore(app);
 //using export will make it available to be used troughout the application
