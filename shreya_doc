@@ -181,3 +181,11 @@ we can use
  
 15/8/25
 well i have simply added the loading gif of a duck we all like to watch as it walks..for entertainment purpose and then made sure to integrate gemini api to get the response we need to generate the trip we want as per the prompt..so yah..now the next stip is to ensure that data gets automatically written in firebase, which surely be challenging but we will do it. end of story for today. i am signing off.
+why is this a hassle?
+
+16/8/25
+got stuck on that firebase read/write operation. tool me ages to resolve the response generation issue. now saving that response to fire base is a big deal that i am trying to pull off right now ....
+fire base has its own api we that is not placed well then it will make cause issue on the accepting and receving end. 
+
+finally the generated data in being writting in firebase ...no we are all set ..the next step is to display this data nicely on the other end in with the best visuals.
+it as quite tiring since last 4 hr. but here we are done with the main functionality of the application.

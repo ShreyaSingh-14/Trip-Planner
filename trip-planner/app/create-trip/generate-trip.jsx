@@ -7,18 +7,19 @@ import { AI_PROMPT } from '../../constants/Options';
 import { useEffect } from 'react';
 import { chatSession } from '../../configs/AiModel';
 import { useRouter } from 'expo-router';
-
+import { setDoc, doc } from 'firebase/firestore';
+import { auth, db } from './../../configs/FirebaseConfig';
 
 export default function GenerateTrip() {
   const videoRef = React.useRef(null);
 const { tripData, setTripData } = useContext(CreateTripContext);
 const [loading,setLoading]=useState(false);
 const router=useRouter();
+const user=auth.currentUser;
+
 useEffect(() => {
-  if (tripData) {
-    tripData&&GenerateAiTrip();
-  }
-}, [tripData]);
+  GenerateAiTrip();
+}, []);
 
 const GenerateAiTrip = async () => {
   setLoading(true);
@@ -33,17 +34,18 @@ const GenerateAiTrip = async () => {
     .replace('{totalNight}', (tripData.totalNoOfDays ? tripData.totalNoOfDays - 1 : 0).toString());
 
   console.log("FINAL_PROMPT:", FINAL_PROMPT);
-
-  try {
     const result = await chatSession.sendMessage(FINAL_PROMPT);
-    const responseText = await result.response.text();
-    console.log("AI Response:", responseText);
-  } catch (error) {
-    console.error("Error generating trip:", error);
-  }
-
-  setLoading(false);
-  router.push('(tabs)/mytrip');
+    console.log("AI Response:", result.response.text())
+    const tripResp=JSON.parse(result.response.text());
+    setLoading(false);
+    const docId = Date.now().toString();
+   await setDoc(doc(db, "UserTrips", docId), {
+      userEmail: user.email,
+      tripPlan: tripResp,//ai result
+      tripData:JSON.stringify(tripData),//user selection data 
+      docId: docId,
+    });
+    router.push('(tabs)/mytrip');     
 };
 
   return (
@@ -55,6 +57,7 @@ const GenerateAiTrip = async () => {
         height: '100%',
       }}
     >
+
       <Text
         style={{
           fontFamily: 'outfit-bold',

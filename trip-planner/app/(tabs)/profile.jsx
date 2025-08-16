@@ -1,40 +1,48 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
-import { useNavigation } from 'expo-router';
+import { useRouter } from 'expo-router';  // Use useRouter from expo-router
 import Colors from '../../constants/Colors';
 import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../configs/FirebaseConfig'; // Adjust path as needed
 
 export default function Profile() {
-  const navigation = useNavigation();
+  const router = useRouter(); // Use router for navigation
 
   useEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      headerTransparent: true,
-      headerTitle: '',
-    });
+    // Expo Router does not support setOptions, remove or handle header via layout
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log('User logged out successfully');
+      router.replace('/auth/sign-in'); // Redirect to sign-in page after logout
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Optionally show an alert or toast here
+    }
+  };
 
   const menuItems = [
     {
       section: 'Settings',
       items: [
-        // { icon: 'person-outline', label: 'Profile', iconLib: Ionicons, onPress: () => navigation.push('/profile/edit') },
-        { icon: 'notifications-none', label: 'Notifications', iconLib: MaterialIcons, onPress: () => navigation.push('/notifications') },
+        { icon: 'notifications-none', label: 'Notifications', iconLib: MaterialIcons, onPress: () => router.push('/notifications') },
       ],
     },
     {
       section: 'Trips',
       items: [
-        { icon: 'inbox', label: 'Your Trips', iconLib: Feather, onPress: () => navigation.push('/trips') },
+        { icon: 'inbox', label: 'Your Trips', iconLib: Feather, onPress: () => router.push('/trips') },
       ],
     },
     {
       section: 'Support',
       items: [
-        { icon: 'help-circle-outline', label: 'Help Center', iconLib: Ionicons, onPress: () => navigation.push('/help') },
-        { icon: 'phone', label: 'Contact Us', iconLib: Feather, onPress: () => navigation.push('/contact') },
-        { icon: 'logout', label: 'Log Out', iconLib: MaterialIcons, color: Colors.RED, onPress: () => console.log('Logout pressed') },
+        { icon: 'help-circle-outline', label: 'Help Center', iconLib: Ionicons, onPress: () => router.push('/help') },
+        { icon: 'phone', label: 'Contact Us', iconLib: Feather, onPress: () => router.push('/contact') },
+        { icon: 'logout', label: 'Log Out', iconLib: MaterialIcons, color: Colors.RED, onPress: handleLogout },
       ],
     },
   ];
@@ -42,11 +50,8 @@ export default function Profile() {
   return (
     <ScrollView style={{ backgroundColor: Colors.WHITE, height: '100%' }}>
       {/* Profile Header */}
-      <Text style={{
-        padding:20, marginTop:30, fontFamily:'outfit-bold',fontSize:40
-      }}> Profile</Text>
-      <View style={{ paddingHorizontal: 20, alignItems: 'center', marginBottom: 30, marginTop:5 }}>
-       
+      <Text style={{ padding: 20, marginTop: 30, fontFamily: 'outfit-bold', fontSize: 40 }}>Profile</Text>
+      <View style={{ paddingHorizontal: 20, alignItems: 'center', marginBottom: 30, marginTop: 5 }}>
         <Text style={{ fontFamily: 'outfit-bold', fontSize: 22 }}>GuideX</Text>
         <Text style={{ fontFamily: 'outfit', fontSize: 14, color: Colors.GRAY }}>guidex@example.com</Text>
 
@@ -58,7 +63,7 @@ export default function Profile() {
             paddingVertical: 8,
             borderRadius: 20,
           }}
-         // onPress={() => navigation.push('/profile/edit')}
+          // onPress={() => router.push('/profile/edit')}
         >
           <Text style={{ color: Colors.WHITE, fontFamily: 'outfit-medium' }}>Edit Profile</Text>
         </TouchableOpacity>
@@ -113,7 +118,9 @@ export default function Profile() {
           </View>
         ))}
       </View>
-      <Text style={{color:Colors.GRAY, fontFamily:'outfit', fontSize:15, paddingLeft:95}}>Developed by GuideX @2025</Text>
+      <Text style={{ color: Colors.GRAY, fontFamily: 'outfit', fontSize: 15, paddingLeft: 95 }}>
+        Developed by GuideX @2025
+      </Text>
     </ScrollView>
   );
 }
