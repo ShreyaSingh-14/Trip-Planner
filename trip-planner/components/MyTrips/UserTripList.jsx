@@ -13,27 +13,16 @@ export default function UserTripList({ userTrips }) {
       <View style={{
         marginTop: 20,
       }}>
-        {LatestTrips.locationInfo?.photoRef != null ?
-          <Image
-            source={{
-              uri: `https://places.googleapis.com/v1/${LatestTrips.locationInfo.photoRef}/media?key=${process.env.GOOGLE_MAPS_API_KEY}&maxWidthPx=400`
-            }}
-            style={{
-              width: "100%",
-              height: 240,
-              objectFit: 'cover',
-              borderRadius: 15,
-            }}
-          />
-          :
-          <Image source={require('./../../assets/images/placeholder.jpeg')}
+          <Image source={
+        userTrips[0].imageUrl
+          ? { uri: userTrips[0].imageUrl } : require('./../../assets/images/placeholder.jpeg')
+      }
             style={{
               width: "100%",
               height: 240,
               obejctFit: 'cover',
               borderRadius: 15,
             }} />
-        }
         <View style={{
           marginTop: 10,
         }}>
@@ -65,7 +54,7 @@ export default function UserTripList({ userTrips }) {
             </Text>
           </View>
           <TouchableOpacity 
-          onPress={() => router.push({pathname:'/trip-details', params:{trip:userTrips[0].docId}})}
+          onPress={() => router.push({pathname:'/trip-details', params:{trip:JSON.stringify(userTrips[0])}})}
             style={{
               backgroundColor: Colors.PRIMARY,
               padding: 15,
