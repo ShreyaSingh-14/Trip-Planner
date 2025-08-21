@@ -5,25 +5,17 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import StartNewTripCard from '../../components/MyTrips/StartNewTripCard';
 import {db} from './../../configs/FirebaseConfig';
 import { auth } from './../../configs/FirebaseConfig';
-<<<<<<< HEAD
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-import UserTripList from '../../components/MyTrips/UserTripList';
-=======
 import UserTripList from '../../components/MyTrips/UserTripList';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 
 
->>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
 export default function MyTrip() {
   const [userTrips, setUserTrips] = useState([]);
   const user=auth.currentUser;
   const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
-=======
     const router = useRouter();
->>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
   useEffect(() => {
     user && GetMyTrips();
   }, [user]);
@@ -41,10 +33,7 @@ export default function MyTrip() {
   }
   return (
     <ScrollView
-<<<<<<< HEAD
-=======
     contentContainerStyle={{ paddingBottom: 80 }}
->>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
       style={{
         padding: 25,
         paddingTop: 55,
@@ -68,13 +57,9 @@ export default function MyTrip() {
         >
           My Trips
         </Text>
-<<<<<<< HEAD
-        <Ionicons name="add-circle" size={50} color={Colors.PRIMARY} />
-=======
         <TouchableOpacity onPress={() => router.push('/create-trip/search-place')}>
           <Ionicons name="add-circle" size={50} color={Colors.PRIMARY} />
         </TouchableOpacity>
->>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
       </View>
       {loading && <ActivityIndicator size="large" color={Colors.PRIMARY} />}
 

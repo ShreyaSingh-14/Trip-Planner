@@ -63,9 +63,6 @@ const OnSignIn=()=>{
   return (
     <View style={styles.container}>
       {/* Header */}
-<<<<<<< HEAD
-      <TouchableOpacity onPress={() => router.back()}>
-=======
       <TouchableOpacity onPress={() => {
   if (router.canGoBack && router.canGoBack()) {
     router.back();
@@ -73,7 +70,6 @@ const OnSignIn=()=>{
     router.replace('/components/Login');
   }
 }}>
->>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
         <Ionicons style={{marginTop:20}} name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
       <View style={styles.header}>

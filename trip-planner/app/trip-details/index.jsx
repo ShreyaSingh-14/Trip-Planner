@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { View, Text } from 'react-native'
-import React from 'react'
-
-export default function TripDetails() {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  )
-}
-=======
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -131,4 +119,3 @@ export default function TripDetails() {
     </ScrollView>
   );
 }
->>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
