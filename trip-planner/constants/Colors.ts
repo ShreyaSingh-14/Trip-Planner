@@ -32,7 +32,8 @@ export const Colors = {
   LIGHT_BLUE: '#0a7ea4cc',
   LIGHT_GRAY: '#f3f1f1ff',
   LIGHT_GREEN: ' #84f38cff',
-  LIGHT_PINK:'#fec1edff'
+  LIGHT_PINK:'#fec1edff',
+  LIGHT_PURPLE:'#dd95f9ff'
 };
 
 export default Colors;
