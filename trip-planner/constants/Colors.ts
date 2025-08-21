@@ -31,7 +31,14 @@ export const Colors = {
   BLUE:'#0a7ea4ff',
   LIGHT_BLUE: '#0a7ea4cc',
   LIGHT_GRAY: '#f3f1f1ff',
+<<<<<<< HEAD
   Magenta: '#800456ff',
+=======
+  LIGHT_GREEN: ' #84f38cff',
+  LIGHT_PINK:'#fec1edff',
+  LIGHT_PURPLE:'#dd95f9ff',
+  LIGTH_BROWN:'#7a3d32ff'
+>>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
 };
 
 export default Colors;

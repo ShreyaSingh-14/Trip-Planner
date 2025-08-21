@@ -17,6 +17,10 @@
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
+<<<<<<< HEAD
+=======
+    "axios": "^1.11.0",
+>>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
     "data-fns": "^1.1.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
@@ -43,6 +47,10 @@
     "react-native-calendars": "^1.1313.0",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-google-places-autocomplete": "^2.5.7",
+<<<<<<< HEAD
+=======
+    "react-native-maps": "^1.25.3",
+>>>>>>> 78fcffab61259b5685b82ea0bca1ac0f2bd7f82b
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
