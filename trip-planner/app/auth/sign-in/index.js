@@ -1,126 +1,157 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation, useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from './../../../constants/Colors';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './../../../configs/FirebaseConfig';
-import { useState } from 'react';
 import { ToastAndroid } from 'react-native';
 
 export default function SignIn() {
   const navigation = useNavigation();
-  const router=useRouter();
+  const router = useRouter();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    navigation.setOptions({ headerShown: false 
-    });
+    navigation.setOptions({ headerShown: false });
   }, []);
 
 
-const OnSignIn=()=>{
-  if(!email || !password) {
+
+const OnSignIn = () => {
+  if (!email || !password) {
     ToastAndroid.show('Please fill all the details...', ToastAndroid.LONG);
     return;
   }
+  
+  setIsLoading(true);
+  
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!(emailPattern.test(email.trim())))
-    {
-      ToastAndroid.show('Please enter a valid email address.', ToastAndroid.LONG);
+  if (!(emailPattern.test(email.trim()))) {
+    ToastAndroid.show('Please enter a valid email address.', ToastAndroid.LONG);
+    setIsLoading(false);
     return;
   }
+  
   signInWithEmailAndPassword(auth, email.trim(), password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    router.replace('/mytrip');
-    console.log('User signed in:', user);
-    // ...
-  })
- .catch((error) => {
-  // console.error('Firebase sign-in error:', error.code, error.message); // debug log
-
-  let message = '';
-  switch (error.code) {
-    case 'auth/invalid-email':
-      message = 'The email address is badly formatted.';
-      break;
-    case 'auth/user-not-found':
-      message = 'No user found with this email.';
-      break;
-    case 'auth/wrong-password':
-      message = 'Incorrect password.';
-      break;
-    default:
-      message = 'Error signing in. Please try again.';
-  }
-  ToastAndroid.show(message, ToastAndroid.LONG);
-});
+    .then((userCredential) => {
+      const user = userCredential.user;
+      router.replace('/mytrip');
+      console.log('User signed in:', user);
+    })
+    .catch((error) => {
+      let message = '';
+      switch (error.code) {
+        case 'auth/invalid-email':
+          message = 'The email address is badly formatted.';
+          break;
+        case 'auth/user-not-found':
+          message = 'No user found with this email.';
+          break;
+        case 'auth/wrong-password':
+          message = 'Incorrect password.';
+          break;
+        default:
+          message = 'Error signing in. Please try again.';
+      }
+      ToastAndroid.show(message, ToastAndroid.LONG);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
 };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <TouchableOpacity onPress={() => {
-  if (router.canGoBack && router.canGoBack()) {
-    router.back();
-  } else {
-    router.replace('/components/Login');
-  }
-}}>
-        <Ionicons style={{marginTop:20}} name="arrow-back" size={24} color="black" />
+      {/* Minimal Header */}
+      <TouchableOpacity 
+        style={styles.backButton}
+        onPress={() => {
+          if (router.canGoBack && router.canGoBack()) {
+            router.back();
+          } else {
+            router.replace('/components/Login');
+          }
+        }}
+      >
+        <Ionicons name="arrow-back" size={24} color={Colors.PRIMARY} />
       </TouchableOpacity>
+
+      {/* Header Section */}
       <View style={styles.header}>
         <Text style={styles.title}>Welcome Back</Text>
         <Text style={styles.subtitle}>
-          Sign in to your account.
-        </Text>
-        <Text style={styles.subtitle}>
-          Explore new features.
+          Sign in to continue your journey
         </Text>
       </View>
 
-      {/* Email Field */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={(value) => setEmail(value)}
-          placeholder="Enter your email" 
-          placeholderTextColor={Colors.GRAY} 
-        />
+      {/* Form Section */}
+      <View style={styles.formContainer}>
+        {/* Email Field */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Email</Text>
+          <View style={styles.inputWrapper}>
+            <Ionicons name="mail-outline" size={20} color={Colors.GRAY} style={styles.inputIcon} />
+            <TextInput 
+              style={styles.input} 
+              onChangeText={(value) => setEmail(value)}
+              placeholder="Enter your email" 
+              placeholderTextColor={Colors.GRAY}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+          </View>
+        </View>
+
+        {/* Password Field */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password</Text>
+          <View style={styles.inputWrapper}>
+            <Ionicons name="lock-closed-outline" size={20} color={Colors.GRAY} style={styles.inputIcon} />
+            <TextInput 
+              secureTextEntry={!showPassword}
+              style={styles.input} 
+              onChangeText={(value) => setPassword(value)}
+              placeholder="Enter your password" 
+              placeholderTextColor={Colors.GRAY}
+            />
+            <TouchableOpacity 
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.eyeIcon}
+            >
+              <Ionicons 
+                name={showPassword ? "eye-outline" : "eye-off-outline"} 
+                size={20} 
+                color={Colors.GRAY} 
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Sign In Button */}
+        <TouchableOpacity 
+          onPress={OnSignIn}
+          style={[styles.signInButton, isLoading && styles.buttonDisabled]}
+          disabled={isLoading}
+        >
+          <Text style={styles.signInText}>
+            {isLoading ? 'Signing In...' : 'Sign In'}
+          </Text>
+        </TouchableOpacity>
+
+        {/* Create Account Link */}
+        <TouchableOpacity 
+          onPress={() => router.replace('/auth/sign-up')}
+          style={styles.createAccountButton}
+        >
+          <Text style={styles.createAccountText}>
+            Don't have an account? <Text style={styles.createAccountLink}>Create Account</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
-
-
-      {/* Password Field */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Password</Text>
-        <TextInput 
-          secureTextEntry={true} 
-          style={styles.input} 
-          onChangeText={(value) => setPassword(value)}
-          placeholder="Enter your password" 
-          placeholderTextColor={Colors.GRAY} 
-        />
-      </View>
-
-      {/* Sign In Button */}
-      <TouchableOpacity 
-      onPress={OnSignIn}
-      // we use onPress to call the function to sign in
-      style={styles.signInButton}>
-        <Text style={styles.signInText}>Sign In</Text>
-      </TouchableOpacity>
-
-      {/* Create Account Button */}
-      <TouchableOpacity 
-      onPress={()=>router.replace('/auth/sign-up')}
-      // we user replace to jump to the next page without mainting history or previous page
-      style={styles.createAccountButton}>
-        <Text style={styles.createAccountText}>Create Account</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -128,72 +159,111 @@ const OnSignIn=()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
     backgroundColor: Colors.WHITE,
-    paddingTop: 50,
-    height: '100%', 
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    zIndex: 10,
+    padding: 12,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
   },
   header: {
-    marginBottom: 40,
-    marginTop: 20
+    paddingTop: 120,
+    paddingHorizontal: 30,
+    paddingBottom: 50,
   },
   title: {
-    fontSize: 35,
+    fontSize: 32,
     fontFamily: 'outfit-bold',
-    color: Colors.BLACK,
+    color: Colors.PRIMARY,
     marginBottom: 8,
-    marginTop: 10,
   },
   subtitle: {
-    fontSize: 20,
-    marginBottom: 10,
-    marginTop: 10,
+    fontSize: 16,
     fontFamily: 'outfit',
     color: Colors.GRAY,
-
+    lineHeight: 22,
+  },
+  formContainer: {
+    flex: 1,
+    paddingHorizontal: 30,
   },
   inputContainer: {
-    marginTop: 5,
+    marginBottom: 25,
   },
   label: {
-    marginLeft: 5,
-    fontFamily: 'outfit',
+    fontFamily: 'outfit-medium',
     fontSize: 16,
-    color: Colors.BLACK,
+    color: Colors.PRIMARY,
+    marginBottom: 8,
+    marginLeft: 5,
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.WHITE,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: Colors.LIGHT_GRAY,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  inputIcon: {
+    marginRight: 10,
   },
   input: {
-    marginTop: 5,
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 15,
-    borderColor: Colors.GRAY,
-    marginBottom: 10,
+    flex: 1,
     fontSize: 16,
+    fontFamily: 'outfit',
+    color: Colors.PRIMARY,
+    paddingVertical: 15,
+  },
+  eyeIcon: {
+    padding: 5,
   },
   signInButton: {
-    backgroundColor: Colors.BLACK,
-    padding: 15,
-    borderRadius: 15,
-    marginTop: 40,
+    backgroundColor: Colors.PRIMARY,
+    borderRadius: 25,
+    marginTop: 30,
+    paddingVertical: 18,
+    paddingHorizontal: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   signInText: {
     color: Colors.WHITE,
-    textAlign: 'center',
     fontSize: 18,
-    fontFamily: 'outfit-bold',
+    fontFamily: 'outfit-medium',
+  },
+  buttonDisabled: {
+    opacity: 0.7,
   },
   createAccountButton: {
-     padding: 15,
-    borderRadius: 15,
     alignItems: 'center',
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: Colors.PRIMARY,
+    marginTop: 30,
+    paddingVertical: 15,
   },
   createAccountText: {
-    color: Colors.BLACK,
+    fontSize: 16,
+    fontFamily: 'outfit',
+    color: Colors.GRAY,
     textAlign: 'center',
-    fontSize: 18,
-    fontFamily: 'outfit-bold',
+  },
+  createAccountLink: {
+    color: Colors.PRIMARY,
+    fontFamily: 'outfit-medium',
   },
 });
