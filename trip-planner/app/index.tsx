@@ -9,7 +9,7 @@ import { Redirect } from "expo-router";
 
 export default function Index() {
   const [showSplash, setShowSplash] = useState(true);
-  const [user, setUser] = useState<User | null>(null); // <- explicit type
+  const [user, setUser] = useState<User | null>(null); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
