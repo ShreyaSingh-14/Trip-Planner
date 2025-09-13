@@ -95,12 +95,12 @@ export default function SelectDates() {
         style={{
           marginTop: 20,
           fontFamily: 'outfit-bold',
-          fontSize: 35,
+          fontSize: 36,
           color: Colors.BLACK,
           marginBottom: 20,
         }}
       >
-        Travel Dates
+        Travel Dates 📅 
       </Text>
 
       <Calendar

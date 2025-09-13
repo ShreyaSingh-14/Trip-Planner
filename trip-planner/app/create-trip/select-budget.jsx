@@ -36,16 +36,16 @@ export default function SelectBudget() {
   }
   return (
     <View style={{
-        paddingTop:80,
+        paddingTop:90,
         padding:25,
         backgroundColor: Colors.WHITE,
         height: '100%'
     }}>
       <Text style={{
         fontFamily: 'outfit-bold',
-        fontSize: 30,
+        fontSize: 36,
         margiTop:20
-      }}>Budget</Text>
+      }}>Budget 🪙</Text>
 
       <View style={{
         marginTop:20

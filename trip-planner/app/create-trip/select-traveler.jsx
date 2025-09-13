@@ -38,13 +38,13 @@ export default function SelectTraveler() {
       <Text
         style={{
           fontFamily: 'outfit-bold',
-          fontSize: 30,
+          fontSize: 36,
           paddingLeft: 25,
           color: Colors.PRIMARY,
-          marginTop: 20,
+          marginTop: 30,
         }}
       >
-        Who's Travelling?
+        Who's Travelling?🤷🏻
       </Text>
 
       {/* Subtitle */}

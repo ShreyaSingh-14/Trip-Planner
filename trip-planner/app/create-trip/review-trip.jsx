@@ -1,152 +1,143 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect } from 'react';
-import { useNavigation } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router';
 import Colors from '../../constants/Colors';
 import moment from 'moment';
 import { CreateTripContext } from '../../context/CreateTripContext';
-import { useRouter } from 'expo-router';
 
 export default function ReviewTrip() {
+  const navigation = useNavigation();
+  const { tripData } = React.useContext(CreateTripContext);
+  const router = useRouter();
 
-    const navigation = useNavigation();
-    const { tripData, setTripData } = React.useContext(CreateTripContext);
-    const router=useRouter();
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTransparent: true,
+      headerTitle: ''
+    })
+  }, [])
 
-    useEffect(() => {
-        navigation.setOptions({
-            headerShown: true,
-            headerTransparent: true,
-            headerTitle: ''
-        })
-    }, [])
+  const InfoCard = ({ icon, label, value }) => (
+    <View
+      style={{
+        backgroundColor: Colors.WHITE,
+        borderRadius: 15,
+        padding: 18,
+        marginBottom: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 6,
+        elevation: 2,
+        flexDirection: 'row',
+        alignItems: 'center',
+      }}
+    >
+      <Text style={{ fontSize: 28, marginRight: 15 }}>{icon}</Text>
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            fontFamily: 'outfit',
+            fontSize: 15,
+            color: Colors.GRAY,
+          }}
+        >
+          {label}
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'outfit-medium',
+            fontSize: 17,
+            marginTop: 3,
+            color: Colors.DARK,
+          }}
+        >
+          {value}
+        </Text>
+      </View>
+    </View>
+  );
 
-    return (
-        <View style={{
-            padding: 25,
-            paddingTop: 75,
-            backgroundColor: Colors.WHITE,
-            height: '100%'
-        }}>
-            <Text style={{
-                fontFamily: 'outfit-bold',
-                fontSize: 35,
-                marginTop: 20
-            }}>Review Your Trip</Text>
+  return (
+    <ScrollView
+      style={{ backgroundColor: Colors.WHITE, flex: 1 }}
+      contentContainerStyle={{ padding: 20, paddingTop: 80 }}
+    >
+      {/* Page Title */}
+      <Text
+        style={{
+            marginTop:20,
+          fontFamily: 'outfit-bold',
+          fontSize: 36,
+          marginBottom: 8,
+          textAlign: 'left',
+        }}
+      >
+        Review Your Trip 🔍
+      </Text>
+      <Text
+        style={{
+          fontFamily: 'outfit',
+          fontSize: 16,
+          color: Colors.GRAY,
+          marginBottom: 25,
+        }}
+      >
+        Before generating your trip, please review your selection.
+      </Text>
 
-            <View>
-                <Text style={{
-                    fontFamily: 'outfit-medium',
-                    fontSize: 20,
-                    marginTop: 10
-                }}>Before generating your trip, please review your selection</Text>
+      {/* Info Cards */}
+      <InfoCard
+        icon="📍"
+        label="Destination"
+        value={tripData?.locationInfo?.name}
+      />
+      <InfoCard
+        icon="📅"
+        label="Travel Date"
+        value={`${moment(tripData?.startDate).format('DD MMM')} - ${moment(
+          tripData?.endDate
+        ).format('DD MMM')} (${tripData?.totalNoOfDays} days)`}
+      />
+      <InfoCard
+        icon="🚌"
+        label="Who is Traveling"
+        value={
+          tripData?.selectedTraveler?.title ||
+          tripData?.selectedTraveler ||
+          tripData?.travelerCount?.title ||
+          tripData?.travelerCount
+        }
+      />
+      <InfoCard icon="💵" label="Budget" value={tripData?.budget} />
 
-                {/* Destination Info */}
-                <View style={{
-                    marginTop: 40,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}>
-                    <Text style={{ fontSize: 30 }}>📍</Text>
-                    <View style={{ marginLeft: 20 }}>
-                        <Text style={{
-                            fontFamily: 'outfit',
-                            fontSize: 20,
-                            color: Colors.GRAY
-                        }}>Destination</Text>
-                        <Text style={{
-                            fontFamily: 'outfit-medium',
-                            fontSize: 18
-                        }}>{tripData?.locationInfo?.name}</Text>
-                    </View>
-                </View>
-
-                {/* Date Selected Info */}
-                <View style={{
-                    marginTop: 20,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}>
-                    <Text style={{ fontSize: 30 }}>📅</Text>
-                    <View style={{ marginLeft: 20 }}>
-                        <Text style={{
-                            fontFamily: 'outfit',
-                            fontSize: 20,
-                            color: Colors.GRAY
-                        }}>Travel Date</Text>
-                        <Text style={{
-                            fontFamily: 'outfit-medium',
-                            fontSize: 18
-                        }}>
-                         {moment(tripData?.startDate).format('DD MMM')+" To "+moment(tripData?.endDate).format('DD MMM')+"   "}
-            ({tripData?.totalNoOfDays} days)
-                        </Text>
-                    </View>
-                </View>
-
-                {/* Travelers Info */}
-                <View style={{
-                    marginTop: 20,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}>
-                    <Text style={{ fontSize: 30 }}>🚌</Text>
-                    <View style={{ marginLeft: 20 }}>
-                        <Text style={{
-                            fontFamily: 'outfit',
-                            fontSize: 20,
-                            color: Colors.GRAY
-                        }}>Who is Traveling</Text>
-                        <Text style={{
-                            fontFamily: 'outfit-medium',
-                            fontSize: 18
-                        }}>
-                            {tripData?.selectedTraveler?.title || tripData?.selectedTraveler || tripData?.travelerCount?.title || tripData?.travelerCount}
-                        </Text>
-                    </View>
-                </View>
-
-                {/* Budget Info */}
-                <View style={{
-                    marginTop: 20,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}>
-                    <Text style={{ fontSize: 30 }}>💵</Text>
-                    <View style={{ marginLeft: 20 }}>
-                        <Text style={{
-                            fontFamily: 'outfit',
-                            fontSize: 20,
-                            color: Colors.GRAY
-                        }}>Budget</Text>
-                        <Text style={{
-                            fontFamily: 'outfit-medium',
-                            fontSize: 18
-                        }}>{tripData?.budget}</Text>
-                    </View>
-                </View>
-            </View>
-
-            <TouchableOpacity
-                style={{
-                    padding: 15,
-                    backgroundColor: Colors.PRIMARY,
-                    borderRadius: 15,
-                    marginTop: 20,
-                    marginBottom: 30,
-                }}
-                onPress={() =>router.replace('/create-trip/generate-trip')}
-            >
-                <Text
-                    style={{
-                        textAlign: 'center',
-                        color: Colors.WHITE,
-                        fontFamily: 'outfit-medium',
-                        fontSize: 20,
-                    }}
-                >
-                    Make My Trip
-                </Text>
-            </TouchableOpacity>
-        </View>
-    )
+      {/* CTA Button */}
+      <TouchableOpacity
+        style={{
+          paddingVertical: 16,
+          backgroundColor: Colors.PRIMARY,
+          borderRadius: 15,
+          marginTop: 30,
+          shadowColor: '#000',
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 0, height: 3 },
+          shadowRadius: 6,
+          elevation: 4,
+        }}
+        onPress={() => router.replace('/create-trip/generate-trip')}
+      >
+        <Text
+          style={{
+            textAlign: 'center',
+            color: Colors.WHITE,
+            fontFamily: 'outfit-medium',
+            fontSize: 18,
+          }}
+        >
+          🚀 Make My Trip
+        </Text>
+      </TouchableOpacity>
+    </ScrollView>
+  )
 }
