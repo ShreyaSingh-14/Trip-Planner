@@ -15,6 +15,10 @@ export default function TripDetails() {
   const { trip } = useLocalSearchParams();
   const [tripDetails, setTripDetails] = useState(null);
   const router = useRouter();
+  
+  // Premium status - Change to true to test premium user experience
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -64,7 +68,7 @@ export default function TripDetails() {
           fontFamily: 'outfit-bold',
           fontSize: 25,
         }}>{tripDetails.tripData?.locationInfo?.name}</Text>
-        {/* <Text>{tripDetails.tripPlan?.travelPlan?.location}</Text> */}
+        
         <View style={{
           display: 'flex',
           flexDirection: 'row',
@@ -86,10 +90,18 @@ export default function TripDetails() {
             🚌  {tripDetails.tripData?.travelerCount?.title}
           </Text>
         </View>
-        {/* flight info */}
-        <FlightInfo flightData={tripDetails.tripPlan?.travelPlan?.flights} />
+        
+        {/* flight info with premium check */}
+        <FlightInfo 
+          flightData={tripDetails.tripPlan?.travelPlan?.flights} 
+          isPremiumUser={isPremiumUser}
+        />
+        
         {/* hotel info */}
-        <TouchableOpacity
+       
+        
+        <HotelList hotelList={tripDetails.tripPlan?.travelPlan?.hotels} />
+         <TouchableOpacity
           onPress={() =>
             router.push({
               pathname: '/trip-details/dayWisePlan',
@@ -111,7 +123,6 @@ export default function TripDetails() {
             color: Colors.WHITE,
           }}>View Day Wise 📅 Plan</Text>
         </TouchableOpacity>
-        <HotelList hotelList={tripDetails.tripPlan?.travelPlan?.hotels} />
         {/* places to visit */}
         <PlacesToVisit places={tripDetails.tripPlan?.travelPlan?.placesToVisit} />
 

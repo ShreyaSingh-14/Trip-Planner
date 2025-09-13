@@ -58,7 +58,7 @@ export default function MyTrip() {
             fontSize: 35,
           }}
         >
-          My Trips
+         🏖️ My Trips 
         </Text>
         <TouchableOpacity onPress={() => router.push('/create-trip/search-place')}>
           <Ionicons name="add-circle" size={50} color={Colors.PRIMARY} />
