@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { useNavigation, useRouter } from 'expo-router';
 import Colors from '../../constants/Colors';
 import { CreateTripContext } from '../../context/CreateTripContext';
@@ -7,25 +7,31 @@ import { CreateTripContext } from '../../context/CreateTripContext';
 export default function SearchPlace() {
   const navigation = useNavigation();
   const router = useRouter();
-  const { tripData, setTripData } = React.useContext(CreateTripContext);
+  const { tripData, setTripData } = useContext(CreateTripContext);
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const typingTimeout = useRef(null);
+
+  const popularPlaces = ['New York', 'Paris', 'Tokyo', 'London', 'Sydney', 'Delhi', 'Bali'];
 
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
       headerTransparent: true,
-      headerTitle: 'Search',
+      headerTitle: '',
     });
   }, []);
 
   const searchPlaces = async (text) => {
     if (text.length < 3) {
       setResults([]);
+      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     try {
       const res = await fetch(
@@ -42,6 +48,8 @@ export default function SearchPlace() {
       setResults(data);
     } catch (err) {
       console.error('Error fetching places:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,7 +62,7 @@ export default function SearchPlace() {
 
     typingTimeout.current = setTimeout(() => {
       searchPlaces(text);
-    }, 600); // Slightly faster feedback
+    }, 500);
   };
 
   const handlePlaceSelect = (item) => {
@@ -88,6 +96,25 @@ export default function SearchPlace() {
 
   return (
     <View style={styles.container}>
+      {/* Fancy Header */}
+      <Text style={styles.header}>Find Your Next Adventure 🌍</Text>
+      <Text style={styles.subHeader}>Search for any city, landmark, or hidden gem</Text>
+
+      {/* Popular Suggestions */}
+      {query.length === 0 && (
+        <View style={styles.suggestionsContainer}>
+          {popularPlaces.map((place, idx) => (
+            <TouchableOpacity
+              key={idx}
+              style={styles.suggestionChip}
+              onPress={() => handleInputChange(place)}
+            >
+              <Text style={styles.suggestionText}>{place}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+
       {/* Search Input */}
       <TextInput
         style={styles.input}
@@ -96,6 +123,9 @@ export default function SearchPlace() {
         value={query}
         onChangeText={handleInputChange}
       />
+
+      {/* Loading Indicator */}
+      {loading && <ActivityIndicator size="small" color={Colors.PRIMARY} style={{ marginTop: 10 }} />}
 
       {/* Results List */}
       <FlatList
@@ -107,15 +137,16 @@ export default function SearchPlace() {
             onPress={() => handlePlaceSelect(item)}
           >
             <Text style={styles.resultText} numberOfLines={2}>
-              {item.display_name}
+              📍 {item.display_name}
             </Text>
           </TouchableOpacity>
         )}
         ListEmptyComponent={
-          query.length >= 3 && (
-            <Text style={styles.emptyText}>No results found</Text>
+          query.length >= 3 && !loading && (
+            <Text style={styles.emptyText}>No results found 🙅🏻</Text>
           )
         }
+        contentContainerStyle={{ paddingBottom: 30 }}
       />
     </View>
   );
@@ -124,12 +155,42 @@ export default function SearchPlace() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
+    padding: 30,
     paddingTop: 75,
     backgroundColor: Colors.WHITE,
   },
+  header: {
+    marginTop:10,
+    fontSize: 36,
+    fontFamily: 'outfit-bold',
+    color: Colors.PRIMARY,
+    marginBottom: 5,
+  },
+  subHeader: {
+    fontSize: 16,
+    fontFamily: 'outfit-regular',
+    color: '#666',
+    marginBottom: 15,
+  },
+  suggestionsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 15,
+  },
+  suggestionChip: {
+    backgroundColor: '#f0f0f0',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  suggestionText: {
+    fontSize: 14,
+    fontFamily: 'outfit-medium',
+    color: Colors.PRIMARY,
+  },
   input: {
-    marginTop: 20,
     height: 50,
     borderColor: '#e0e0e0',
     borderWidth: 1.5,

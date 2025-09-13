@@ -126,7 +126,7 @@ export default function Premium() {
         <Text
           style={{
             fontFamily: 'outfit-bold',
-            fontSize: 32,
+            fontSize: 36,
             color: Colors.DARK,
             textAlign: 'center',
             marginBottom: 8,

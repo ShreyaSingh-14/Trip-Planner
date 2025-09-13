@@ -12,19 +12,19 @@ export default function TabLayout() {
     headerShown: false,
     tabBarActiveTintColor: Colors.PRIMARY,
    }}>
-    <Tabs.Screen name="discover"
-      options ={{
-      tabBarLabel: 'Explore',
-      tabBarIcon: ({ color }) =><Ionicons name="globe-sharp" 
-      size={24} color={color} /> 
-     }} />
+    
      <Tabs.Screen name="mytrip" 
      options ={{
       tabBarLabel: 'My Trip',
       tabBarIcon: ({ color }) =><Ionicons name = "location-sharp" 
       size={24} color={color} /> 
      }}/>
-     
+     <Tabs.Screen name="discover"
+      options ={{
+      tabBarLabel: 'Explore',
+      tabBarIcon: ({ color }) =><Ionicons name="globe-sharp" 
+      size={24} color={color} /> 
+     }} />
      <Tabs.Screen name="premium" 
      options ={{
       tabBarLabel: 'Premium',
