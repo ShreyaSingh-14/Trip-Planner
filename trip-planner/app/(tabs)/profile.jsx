@@ -133,7 +133,7 @@ export default function Profile() {
         </View>
       </Modal>
 
-      {/* Help Center Modal */}
+      
       <Modal visible={helpModalVisible} transparent animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
