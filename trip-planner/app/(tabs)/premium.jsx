@@ -53,15 +53,15 @@ export default function Premium() {
     {
       id: 'monthly',
       title: 'Monthly',
-      price: '$9.99',
+      price: '₹299',
       period: 'per month',
-      popular: false,
+      popular: false,  
       savings: null
     },
     {
       id: 'yearly',
       title: 'Yearly',
-      price: '$79.99',
+      price: '₹2999',
       period: 'per year',
       popular: true,
       savings: 'Save 33%'
