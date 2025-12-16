@@ -11,13 +11,13 @@ import {getFirestore} from "firebase/firestore"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA7T7J4sU0Rt84FNuO1_UosX4PKVMLxcW8",//the previous one is deprecated- it does not workS
-  authDomain: "ai-trip-planner-88f43.firebaseapp.com",
-  projectId: "ai-trip-planner-88f43",
-  storageBucket: "ai-trip-planner-88f43.firebasestorage.app",
-  messagingSenderId: "1052196601740",
-  appId: "1:1052196601740:web:0726cfd3578f248ae1a0a9",
-  measurementId: "G-SHD0S99BN3"
+  apiKey: API_KEY,//the previous one is deprecated- it does not workS
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGER_SENDER_ID,
+  appId:APP_ID,
+  measurementId: MEASUREMENT_ID
 };
 
 // Initialize Firebase
